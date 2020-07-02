@@ -26,20 +26,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
+add_subdirectory(Core)
+
+include_directories(${Core_SOURCE_DIR})
+
+set(SRCS
+    main.cpp
+    )
+
 if(ANDROID)
   add_library(SciVis3DClass SHARED
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
+    ${SRCS}
   )
 else()
   add_executable(SciVis3DClass
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
+    ${SRCS}
   )
 endif()
 
-target_link_libraries(SciVis3DClass PRIVATE Qt5::Widgets)
+target_link_libraries(SciVis3DClass PRIVATE Qt5::Widgets Core)
