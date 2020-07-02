@@ -27,6 +27,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_subdirectory(Core)
+add_subdirectory(Plugins/HelloWorld)
 
 include_directories(${Core_SOURCE_DIR})
 
@@ -44,5 +45,10 @@ else()
     ${SRCS}
   )
 endif()
+
+set_target_properties(SciVis3DClass PROPERTIES
+                                LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set_target_properties(SciVis3DClass PROPERTIES
+                                RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 target_link_libraries(SciVis3DClass PRIVATE Qt5::Widgets Core)

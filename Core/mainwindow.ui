@@ -44,7 +44,13 @@
      <string>Help</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuStates">
+    <property name="title">
+     <string>States</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuStates"/>
    <addaction name="menuView"/>
    <addaction name="menuDialogs"/>
    <addaction name="menuHelp"/>

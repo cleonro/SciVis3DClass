@@ -18,8 +18,9 @@ public:
     MainWindow * mainWindow();
     void setMainWindow(MainWindow *mainWindow);
 
-    void clearStage();
     void setStageState(StageState *stageStage);
+
+    void loadPlugins();
 
 signals:
 

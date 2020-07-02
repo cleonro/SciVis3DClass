@@ -22,4 +22,7 @@ signals:
 
 };
 
+#define StageState_iid "org.SciVis3DClass.StageStage"
+Q_DECLARE_INTERFACE(StageState, StageState_iid)
+
 #endif // STAGESTATE_H
