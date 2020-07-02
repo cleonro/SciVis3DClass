@@ -4,6 +4,8 @@ set(SRCS
     CoreDefines.h
     mainwindow.cpp mainwindow.h
     mainwindow.ui
+    stagemanager.cpp stagemanager.h
+    stagestate.cpp stagestate.h
     )
 
 add_library(Core ${SRCS})
