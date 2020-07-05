@@ -25,6 +25,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #endif()
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(VTK REQUIRED)
 
 add_subdirectory(Core)
 add_subdirectory(Plugins/HelloWorld)

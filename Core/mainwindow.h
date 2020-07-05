@@ -9,6 +9,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class VTKSceneWidget;
+
 class Core_EXPORT MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,6 +20,10 @@ public:
     ~MainWindow();
 
 private:
+    void prepareScene();
+
+private:
     Ui::MainWindow *ui;
+    VTKSceneWidget *m_scene;
 };
 #endif // MAINWINDOW_H

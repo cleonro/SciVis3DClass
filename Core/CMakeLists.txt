@@ -6,6 +6,7 @@ set(SRCS
     mainwindow.ui
     stagemanager.cpp stagemanager.h
     stagestate.cpp stagestate.h
+    vtkscenewidget.cpp vtkscenewidget.h
     )
 
 add_library(Core SHARED ${SRCS})
@@ -15,4 +16,5 @@ set_target_properties(Core PROPERTIES
 set_target_properties(Core PROPERTIES
                                 RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-target_link_libraries(Core Qt5::Widgets)
+target_link_libraries(Core Qt5::Widgets ${VTK_LIBRARIES})
+
