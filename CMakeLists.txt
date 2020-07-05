@@ -29,6 +29,7 @@ find_package(VTK REQUIRED)
 
 add_subdirectory(Core)
 add_subdirectory(Plugins/HelloWorld)
+add_subdirectory(Plugins/ODE)
 
 include_directories(${Core_SOURCE_DIR})
 
