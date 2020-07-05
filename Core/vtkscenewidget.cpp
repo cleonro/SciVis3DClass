@@ -38,3 +38,8 @@ void VTKSceneWidget::prepare()
     m_axesActor = createAxesActor(100.0);
     m_renderer->AddActor(m_axesActor);
 }
+
+vtkRenderer * VTKSceneWidget::renderer()
+{
+    return m_renderer.GetPointer();
+}

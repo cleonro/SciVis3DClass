@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+class QAction;
+
 class StageState : public QObject
 {
     Q_OBJECT
@@ -15,11 +17,20 @@ public:
     StageState & operator=(const StageState &) = delete;
     StageState & operator=(const StageState &&) = delete;
 
+    virtual void linkToApp();
     virtual void init() = 0;
     virtual void clear() = 0;
 
 signals:
 
+protected:
+    void setActivateStageActionTitle(const QString &title);
+
+private slots:
+    void onActivateStageAction(bool toggled);
+
+private:
+    QAction *m_activateStage;
 };
 
 #define StageState_iid "org.SciVis3DClass.StageStage"

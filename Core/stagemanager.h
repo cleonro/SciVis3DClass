@@ -9,6 +9,8 @@
 
 #define STAGEMNGR StageManager::instance()
 
+class QAction;
+
 class Core_EXPORT StageManager : public QObject
 {
     Q_OBJECT
@@ -24,13 +26,16 @@ public:
 
 signals:
 
+private slots:
+    void onEmptyStageAction(bool toggled);
+
 private:
     explicit StageManager(QObject *parent = nullptr);
 
 private:
     MainWindow *m_mainWindow;
     StageState *m_stageState;
-
+    QAction *m_emptyStageAction;
 };
 
 #endif // STAGEMANAGER_H

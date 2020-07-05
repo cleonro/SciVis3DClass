@@ -18,6 +18,8 @@ public:
 
     void prepare();
 
+    vtkRenderer * renderer();
+
 private:
     vtkSmartPointer<vtkRenderer> m_renderer;
     vtkSmartPointer<vtkAxesActor> m_axesActor;

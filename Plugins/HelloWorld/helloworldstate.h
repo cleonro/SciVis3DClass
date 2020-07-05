@@ -19,6 +19,8 @@ public:
 
 signals:
 
+private:
+
 };
 
 #endif // HELLOWORLDSTATE_H
