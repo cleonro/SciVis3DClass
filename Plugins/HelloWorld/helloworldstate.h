@@ -5,6 +5,8 @@
 
 #include <QObject>
 
+class HelloWorldController;
+
 class HelloWorldState : public StageState
 {
     Q_OBJECT
@@ -20,6 +22,7 @@ public:
 signals:
 
 private:
+    HelloWorldController *m_controller;
 
 };
 
