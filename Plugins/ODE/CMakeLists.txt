@@ -2,6 +2,7 @@ project(ODE)
 
 set(SRCS
     odestate.cpp odestate.h
+    odecontroller.cpp odecontroller.h
     )
 
 include_directories(${Core_SOURCE_DIR})

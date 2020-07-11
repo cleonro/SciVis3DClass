@@ -43,3 +43,8 @@ vtkRenderer * VTKSceneWidget::renderer()
 {
     return m_renderer.GetPointer();
 }
+
+void VTKSceneWidget::setAxesVisible(bool visible)
+{
+    m_axesActor->SetVisibility(visible);
+}

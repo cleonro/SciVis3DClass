@@ -5,6 +5,8 @@
 
 #include <QObject>
 
+class ODEController;
+
 class ODEState : public StageState
 {
     Q_OBJECT
@@ -18,6 +20,7 @@ public:
     void clear() override;
 
 private:
+    ODEController *m_controller;
 
 };
 

@@ -20,6 +20,8 @@ public:
 
     vtkRenderer * renderer();
 
+    void setAxesVisible(bool visible);
+
 private:
     vtkSmartPointer<vtkRenderer> m_renderer;
     vtkSmartPointer<vtkAxesActor> m_axesActor;
