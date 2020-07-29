@@ -1,0 +1,63 @@
+<SuperBuild>
+    <WorkingDirectory>
+    </WorkingDirectory>
+    <!--
+        Take care of CMAKE_BUILD_TYPE and CMAKE_INSTALL_PREFIX
+    -->
+    <BuildType>
+        Debug
+    </BuildType>
+    <Projects>
+        <VTK>
+            <Checkout>
+                <repository>https://gitlab.kitware.com/vtk/vtk</repository>
+                <branch>release</branch>
+            </Checkout>
+            <Configure>
+                <generator>Ninja</generator>
+                <variable name="VTK_BUILD_TESTING" type="STRING">OFF</variable>
+                <variable name="VTK_GROUP_ENABLE_Qt" type="STRING">NO</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_GUISupportQt" type="STRING">YES</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_GUISupportQtOpenGL" type="STRING">YES</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_GUISupportQtSQL" type="STRING">YES</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_RenderingQt" type="STRING">YES</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_ViewsQt" type="STRING">YES</variable>
+                <variable name="VTK_MODULE_ENABLE_VTK_vtkDICOM" type="STRING">NO</variable>
+
+				<!--Required for 2d graphs [vtk context view]-->
+				<variable name="VTK_MODULE_ENABLE_VTK_RenderingContext2D" type="STRING">WANT</variable>
+				<variable name="VTK_MODULE_ENABLE_VTK_RenderingContextOpenGL2" type="STRING">WANT</variable>
+				<variable name="VTK_MODULE_ENABLE_VTK_ViewsContext2D" type="STRING">WANT</variable>
+				<!--2d graphs-->
+            </Configure>
+            <Build>
+            </Build>
+        </VTK>
+        <GSL>
+        	<Checkout>
+        		<repository>git@github.com:ampl/gsl.git</repository>
+        		<branch>master</branch>
+                <commit>f8e5694</commit>
+        	</Checkout>
+        	<Configure>
+        			<generator>Ninja</generator>
+        			<variable name="BUILD_SHARED_LIBS" type="BOOL">true</variable>
+        	</Configure>
+        	<Build>
+        	</Build>
+        </GSL>
+        <SciVis3DClass>
+            <Checkout>
+                <repository>git@github.com:cleonro/SciVis3DClass.git</repository>
+                <branch>master</branch>
+            </Checkout>
+            <Configure>
+                <generator>Ninja</generator>
+                <variable name="VTK_DIR" type="PROJECTBUILDPATH">VTK</variable>
+				<variable name="GSL_DIR" type="PROJECTBUILDPATH">GSL</variable>
+            </Configure>
+            <Build>
+            </Build>
+        </SciVis3DClass>
+    </Projects>
+</SuperBuild>
