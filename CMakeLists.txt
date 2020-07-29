@@ -27,11 +27,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(VTK REQUIRED)
 
+# GSL finding stuff
+set(GSL_DIR CACHE PATH "GSL build directory")
+set(GSL_INCLUDE_DIR ${GSL_DIR})
+find_library(GSL_CBLAS_LIBRARY NAMES gslcblas libgslcblas PATHS ${GSL_DIR})
+find_library(GSL_LIBRARY NAMES gsl libgsl PATHS ${GSL_DIR})
+find_package(GSL REQUIRED)
+
 add_subdirectory(Core)
 add_subdirectory(Plugins/HelloWorld)
 add_subdirectory(Plugins/ODE)
 
 include_directories(${Core_SOURCE_DIR})
+include_directories(${GSL_INCLUDE_DIRS})
 
 set(SRCS
     main.cpp

@@ -3,6 +3,7 @@ project(ODE)
 set(SRCS
     odestate.cpp odestate.h
     odecontroller.cpp odecontroller.h
+    odesolver.cpp odesolver.h
     )
 
 include_directories(${Core_SOURCE_DIR})
@@ -15,5 +16,5 @@ set_target_properties(ODESciVis3DClassPlugin PROPERTIES
                                 RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/plugins")
 
 
-target_link_libraries(ODESciVis3DClassPlugin ${Core_LIB} Qt5::Widgets ${VTK_LIBRARIES})
+target_link_libraries(ODESciVis3DClassPlugin ${Core_LIB} Qt5::Widgets ${VTK_LIBRARIES} GSL::gsl GSL::gslcblas)
 
