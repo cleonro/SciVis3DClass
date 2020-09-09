@@ -7,6 +7,7 @@
 
 class vtkContextActor;
 class vtkChartXY;
+class ODESolver;
 
 class ODEController : public QObject
 {
@@ -19,15 +20,20 @@ public:
 
 signals:
 
+private slots:
+    void onStarted(int dimension);
+    void onStepValue(double value);
+    void onStepFunctionValue(int index, double value);
+    void onFinished();
+
 private:
     void createVTKObjects();
 
 private:
-    void createSinCosGraph();
-
-private:
     vtkSmartPointer<vtkContextActor> m_actor;
     vtkSmartPointer<vtkChartXY> m_chart;
+
+    ODESolver *m_solver;
 };
 
 #endif // ODECONTROLLER_H
