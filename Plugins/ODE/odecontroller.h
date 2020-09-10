@@ -7,11 +7,16 @@
 
 class vtkContextActor;
 class vtkChartXY;
+class vtkDoubleArray;
+class vtkTable;
 class ODESolver;
 
 class ODEController : public QObject
 {
     Q_OBJECT
+
+using vtkSmartPointerDoubleArray = vtkSmartPointer<vtkDoubleArray>;
+
 public:
     explicit ODEController(QObject *parent = nullptr);
 
@@ -32,6 +37,8 @@ private:
 private:
     vtkSmartPointer<vtkContextActor> m_actor;
     vtkSmartPointer<vtkChartXY> m_chart;
+    std::vector<vtkSmartPointerDoubleArray> m_solutionColumns;
+    vtkSmartPointer<vtkTable> m_table;
 
     ODESolver *m_solver;
 };

@@ -54,79 +54,65 @@ void ODEController::clear()
     renderer->GetRenderWindow()->Render();
 }
 
-using vtkSmartPointerDoubleArray = vtkSmartPointer<vtkDoubleArray>;
-static std::vector<vtkSmartPointerDoubleArray> solutionColumns;
-
-static vtkSmartPointer<vtkTable> table = vtkSmartPointer<vtkTable>::New();
-
 void ODEController::onStarted(int dimension)
 {
-#if 0
-    //test-remove
-    static bool done = false;
-    if(!done)
-    {
-        table->AddColumn(vtkSmartPointerDoubleArray::New());
-        table->AddColumn(vtkSmartPointerDoubleArray::New());
-        table->AddColumn(vtkSmartPointerDoubleArray::New());
-        done = true;
-    }
-    //
-
     // clear existing information
-    int tableColumns = table->GetNumberOfColumns();
+    int tableColumns = m_table->GetNumberOfColumns();
     while(tableColumns > 0)
     {
-        table->RemoveColumn(tableColumns - 1);
-        tableColumns = table->GetNumberOfColumns();
+        m_table->RemoveColumn(0);
+        tableColumns = m_table->GetNumberOfColumns();
     }
-    while(m_chart->GetNumberOfPlots() > 0)
+
+    int numberOfPlots = m_chart->GetNumberOfPlots();
+    while(numberOfPlots > 0)
     {
         m_chart->RemovePlot(0);
+        numberOfPlots = m_chart->GetNumberOfPlots();
     }
-#endif
-    solutionColumns.clear();
+
+    m_solutionColumns.clear();
 
     // create data table
-    solutionColumns.resize(dimension + 1);
+    m_solutionColumns.resize(dimension + 1);
     for(int i = 0; i <= dimension; ++i)
     {
-        solutionColumns[i] = vtkSmartPointerDoubleArray::New();
-        table->AddColumn(solutionColumns[i]);
+        m_solutionColumns[i] = vtkSmartPointerDoubleArray::New();
+        m_table->AddColumn(m_solutionColumns[i]);
     }
 
-    solutionColumns[0]->SetName("Time");
-    solutionColumns[1]->SetName("Solution");
+    m_solutionColumns[0]->SetName("Time");
+    m_solutionColumns[1]->SetName("Solution");
     for(int i = 2; i <= dimension; ++i)
     {
         std::ostringstream os;
         os << "Derivative - order " <<  i - 1;
-        solutionColumns[i]->SetName(os.str().c_str());
+        m_solutionColumns[i]->SetName(os.str().c_str());
     }
 }
 
 void ODEController::onStepValue(double value)
 {
-    table->InsertNextBlankRow();
-    int row = table->GetNumberOfRows() - 1;
-    table->SetValue(row, 0, value);
+    m_table->InsertNextBlankRow();
+    int row = m_table->GetNumberOfRows() - 1;
+    m_table->SetValue(row, 0, value);
 }
 
 void ODEController::onStepFunctionValue(int index, double value)
 {
-    int row = table->GetNumberOfRows() - 1;
-    table->SetValue(row, index + 1, value);
+    int row = m_table->GetNumberOfRows() - 1;
+    m_table->SetValue(row, index + 1, value);
 }
 
 void ODEController::onFinished()
 {
     // create graphs
-    int columns = table->GetNumberOfColumns();
+    int columns = m_table->GetNumberOfColumns();
     int maxColor = columns - 1;
     for(int i = 1; i < columns; ++i)
     {
         vtkPlot *line = m_chart->AddPlot(vtkChart::LINE);
-        line->SetInputData(table, 0, i);
+        line->SetInputData(m_table, 0, i);
         double b = 0.7 * (i - 1) / (maxColor - 1);
         double g = 0.1;
         double r = 0.7 - 0.7 * (i - 1) / (maxColor - 1);
@@ -138,6 +124,8 @@ void ODEController::onFinished()
 
 void ODEController::createVTKObjects()
 {
+    m_table = vtkSmartPointer<vtkTable>::New();
+
     m_chart = vtkSmartPointer<vtkChartXY>::New();
     m_actor = vtkSmartPointer<vtkContextActor>::New();
     m_actor->GetScene()->AddItem(m_chart);
