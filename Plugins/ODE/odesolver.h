@@ -29,7 +29,6 @@ public:
 
     State state();
 
-    void solve();
     void solve(int order, ODESystemFunction_C function, ODESystemJacobian_C jacobian, double params[], double y[], int size, double t0, double t1);
 
 signals:

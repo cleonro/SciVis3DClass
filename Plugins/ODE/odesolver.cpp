@@ -7,45 +7,6 @@
 #include <cmath>
 #include <iostream>
 
-///////////////////////////////////////////////////////////////////////////////
-/// \brief Just an example
-
-static int function(double t, const double y[], double f[], void *params)
-{
-    (void)(t);
-    const double r = ((double*)params)[0];
-    const double w = ((double*)params)[1];
-    const double w2 = w * w;
-
-    f[0] = y[1];
-    f[1] = -r * y[1] - w2 * y[0];
-
-    return GSL_SUCCESS;
-}
-
-static int jacobian(double t, const double y[], double *dfdy, double dfdt[], void *params)
-{
-    (void)(t);
-    const double r = ((double*)params)[0];
-    const double w = ((double*)params)[1];
-    const double w2 = w * w;
-
-    gsl_matrix_view dfdy_mat = gsl_matrix_view_array(dfdy, 2, 2);
-    gsl_matrix *m = &dfdy_mat.matrix;
-    gsl_matrix_set(m, 0, 0, 0.0);
-    gsl_matrix_set(m, 0, 1, 1.0);
-    gsl_matrix_set(m, 1, 0, -w2);
-    gsl_matrix_set(m, 1, 1, -r);
-    dfdt[0] = 0.0;
-    dfdt[1] = 0.0;
-
-    return GSL_SUCCESS;
-}
-
-static double params[]{M_PI / 2, 2.0 * M_PI};
-
-///////////////////////////////////////////////////////////////////////////////
-
 ODESolver::ODESolver(QObject *parent)
     : QObject(parent)
     , m_state(State::IDLE)
@@ -56,12 +17,6 @@ ODESolver::ODESolver(QObject *parent)
 ODESolver::State ODESolver::state()
 {
     return m_state;
-}
-
-void ODESolver::solve()
-{
-    double y[2] = { 5.0, 0.0 };
-    solve(2, function, jacobian, params, y, 1000, 0.0, 10.0);
 }
 
 void ODESolver::solve(int order, ODESystemFunction_C function, ODESystemJacobian_C jacobian, double params[], double y[], int size, double t0, double t1)

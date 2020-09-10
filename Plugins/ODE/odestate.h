@@ -6,6 +6,7 @@
 #include <QObject>
 
 class ODEController;
+class ODEInterface;
 
 class ODEState : public StageState
 {
@@ -21,7 +22,7 @@ public:
 
 private:
     ODEController *m_controller;
-
+    ODEInterface *m_odeInterface;
 };
 
 #endif // ODESTATE_H

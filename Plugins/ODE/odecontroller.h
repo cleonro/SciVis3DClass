@@ -10,6 +10,7 @@ class vtkChartXY;
 class vtkDoubleArray;
 class vtkTable;
 class ODESolver;
+class ODEInterface;
 
 class ODEController : public QObject
 {
@@ -22,6 +23,9 @@ public:
 
     void init();
     void clear();
+
+    void clearGraph();
+    void startComputing(ODEInterface *ode);
 
 signals:
 

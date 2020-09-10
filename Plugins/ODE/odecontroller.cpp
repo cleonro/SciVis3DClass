@@ -2,6 +2,7 @@
 #include "stagemanager.h"
 #include "vtkscenewidget.h"
 #include "odesolver.h"
+#include "odeinterface.h"
 
 #include <vtkRenderer.h>
 #include <vtkContextScene.h>
@@ -32,8 +33,6 @@ ODEController::ODEController(QObject *parent)
     connect(m_solver, &ODESolver::finished, this, &ODEController::onFinished);
 
     createVTKObjects();
-
-    m_solver->solve();
 }
 
 void ODEController::init()
@@ -54,9 +53,8 @@ void ODEController::clear()
     renderer->GetRenderWindow()->Render();
 }
 
-void ODEController::onStarted(int dimension)
+void ODEController::clearGraph()
 {
-    // clear existing information
     int tableColumns = m_table->GetNumberOfColumns();
     while(tableColumns > 0)
     {
@@ -72,6 +70,30 @@ void ODEController::onStarted(int dimension)
     }
 
     m_solutionColumns.clear();
+
+    VTKSceneWidget * scene = STAGEMNGR.mainWindow()->sceneWidget();
+    vtkRenderer *renderer = scene->renderer();
+    renderer->GetRenderWindow()->Render();
+}
+
+void ODEController::startComputing(ODEInterface *ode)
+{
+    m_solver->solve(
+                ode->order(),
+                ode->systemFunction(),
+                ode->systemJacobian(),
+                ode->parameters(),
+                ode->stateVector(),
+                ode->solutionSize(),
+                0.0,
+                ode->timeStop()
+                );
+}
+
+void ODEController::onStarted(int dimension)
+{
+    // clear existing information
+    clearGraph();
 
     // create data table
     m_solutionColumns.resize(dimension + 1);
@@ -120,6 +142,9 @@ void ODEController::onFinished()
     }
 
     m_chart->Update();
+    VTKSceneWidget * scene = STAGEMNGR.mainWindow()->sceneWidget();
+    vtkRenderer *renderer = scene->renderer();
+    renderer->GetRenderWindow()->Render();
 }
 
 void ODEController::createVTKObjects()

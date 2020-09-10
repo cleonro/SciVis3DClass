@@ -4,11 +4,20 @@ set(SRCS
     odestate.cpp odestate.h
     odecontroller.cpp odecontroller.h
     odesolver.cpp odesolver.h
+    odeinterface.h
+    odeexamples.cpp odeexamples.h
+    odeuidampedoscillator.cpp odeuidampedoscillator.h
+    )
+set(UIS
+    odeuidampedoscillator.ui
+    )
+set(RCS
+    qtrc.qrc
     )
 
 include_directories(${Core_SOURCE_DIR})
 
-add_library(ODESciVis3DClassPlugin SHARED ${SRCS})
+add_library(ODESciVis3DClassPlugin SHARED ${SRCS} ${UIS} ${RCS})
 
 set_target_properties(ODESciVis3DClassPlugin PROPERTIES
                                 LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/plugins")

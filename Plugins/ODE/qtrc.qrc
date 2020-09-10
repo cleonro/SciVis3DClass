@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/damped_oscillator.png</file>
+    </qresource>
+</RCC>
