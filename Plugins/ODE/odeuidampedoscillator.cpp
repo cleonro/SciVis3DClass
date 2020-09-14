@@ -30,11 +30,13 @@ int ODEUiDampedOscillator::order()
 ODESolver::ODESystemFunction_C & ODEUiDampedOscillator::systemFunction()
 {
     return ODEExamples::dampedOscillatorFunction;
+    //return ODEExamples::realPendulumFunction;
 }
 
 ODESolver::ODESystemJacobian_C & ODEUiDampedOscillator::systemJacobian()
 {
     return ODEExamples::dampedOscillatorJacobian;
+    //return ODEExamples::realPendulumJacobian;
 }
 
 double * ODEUiDampedOscillator::parameters()
