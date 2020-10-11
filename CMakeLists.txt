@@ -37,6 +37,7 @@ find_package(GSL REQUIRED)
 add_subdirectory(Core)
 add_subdirectory(Plugins/HelloWorld)
 add_subdirectory(Plugins/ODE)
+add_subdirectory(Plugins/PDE1)
 
 include_directories(${Core_SOURCE_DIR})
 include_directories(${GSL_INCLUDE_DIRS})
